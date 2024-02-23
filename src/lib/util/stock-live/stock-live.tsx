@@ -11,7 +11,9 @@ function formatPrice(price: number) {
 }
 
 export function StockLive() {
-    const [stock, setStock] = useState<Message<{}> | null>(null);
+    const [prevStock, setPrevStock] = useState<Message<{}> | null | undefined>(null);
+    const [currentStock, setCurrentStock] = useState<Message<{}> | null | undefined>(null);
+    const [direction, setDirection] = useState('up');
     useEffect(() => {
         const ws = new WebSocket('wss://streamer.finance.yahoo.com');
         protobuf.load('./YPricingData.proto', (error: Error | null, root: Root | undefined) => {
@@ -24,25 +26,44 @@ export function StockLive() {
             
             ws.onopen = function open() {
                 console.log('connected');
-                ws.send(JSON.stringify({ subscribe: ['TSLA'] }));
+                ws.send(JSON.stringify({ subscribe: ['AAPL'] }));
             };
         
             ws.onclose = function close() {
                 console.log('disconnected');
             };
         
-            ws.onmessage = function incoming(message) {
-                try {
-                    const next = Yaticker?.decode(new Buffer(message.data, 'base64'));
-                    if (next) {
-                        setStock(next);
-                    }
-                } catch (error) {
-                    console.error('Error decoding message:', error);
+            ws.onmessage = async function incoming(message) {
+
+                const next = Yaticker?.decode(new Buffer(message.data, 'base64'));
+                setCurrentStock((current) => {
+                    setPrevStock(current);
+                    return next;
                 }
+                );
             };
         });
     }, []);
+
+    useEffect(() => {
+        if (currentStock && prevStock) {
+            const nextPrice = (currentStock as any).price.toFixed(2);
+            const prevPrice = (prevStock as any).price.toFixed(2);
+
+            const newDirection = prevPrice < nextPrice ? 'up' : 'down';
+            if (nextPrice !== prevPrice) {
+                setDirection(newDirection);
+            }
+        }
+    }, [currentStock, prevStock]);
+    
+
+    const priceColor = {
+        up: 'text-green-500',
+        down: 'text-red-500',
+    }[direction];
+    
+
     return (
         <div>
             <div className="w-full">
@@ -51,8 +72,8 @@ export function StockLive() {
                 decoration="top"
                 decorationColor="indigo"
             >
-                <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">{stock && (stock as any).id}</p>
-                <p className="text-3xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{stock && formatPrice((stock as any).price)}</p>
+                <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">{currentStock && (currentStock as any).id}</p>
+                    <p className={`text-3xl font-semibold ${priceColor}`}>{currentStock && formatPrice((currentStock as any).price)}</p>
                 </Card>
             </div>
 
