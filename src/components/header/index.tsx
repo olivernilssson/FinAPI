@@ -7,9 +7,9 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
   { name: 'Live Stock', href: '/livestock' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: 'Menu2', href: '#' },
+  { name: 'Menu3', href: '#' },
+  { name: 'Menu4', href: '#' },
 ]
 
 export default function Header() {
