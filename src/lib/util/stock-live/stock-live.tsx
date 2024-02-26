@@ -1,7 +1,7 @@
 "use client";
 
-import { Card, Metric, Text } from '@tremor/react';
-
+import { Card, Badge } from '@tremor/react';
+import { RiRecordCircleFill } from '@remixicon/react';
 import { useEffect, useState } from 'react';
 import protobuf, { Root, Message } from 'protobufjs';
 const { Buffer } = require('buffer/');
@@ -40,7 +40,6 @@ export function StockLive({ ticker }: { ticker: string }) {
             ws.onopen = function open() {
                 setConnect(true);
                 console.log('connected');
-                // clearTimeout(timeout);
                 ws.send(JSON.stringify({ subscribe: [ticker] }));
             };
         
@@ -81,7 +80,7 @@ export function StockLive({ ticker }: { ticker: string }) {
         down: 'text-red-500',
     }[direction];
     
-    const decirationColor = priceColor?.substring(5);
+    const decorationColor = priceColor?.substring(5);
 
     return (
         <div>
@@ -89,12 +88,30 @@ export function StockLive({ ticker }: { ticker: string }) {
             <Card
                 className="w-full"
                 decoration="top"
-                decorationColor={decirationColor}
+                decorationColor={decorationColor}
                 >
                 <div className='flex justify-between align-center'>
                     <h1 className="text-tremor-content dark:text-dark-tremor-content text-3xl font-b">{ticker}</h1>
                     <div className="flex-col text-right">
-                        {connect ? <p className="text-green-500">Connected</p> : <p className="text-slate-400">Connecting...</p>}
+                        {connect ? 
+                            <Badge color={'green'}>
+                                <div className='flex items-center justify-between gap-x-2'>
+                                    <span className='animate-pulse'>
+                                        <RiRecordCircleFill />
+                                    </span>
+                                    <span>Connected</span>
+                                </div>
+                            </Badge> 
+                        : 
+                            <Badge>
+                                <div className='flex items-center justify-between'>
+                                    <span className='animate-pulse'>
+                                        <RiRecordCircleFill />
+                                    </span>
+                                    <span>Connecting...</span>
+                                </div>
+                            </Badge>
+                            }
                         {marketStatus === 'closed' ? (<p className="text-red-500">Market Closed</p>) : marketStatus === 'open' ? <p className="text-green-500">Market Open</p> : <p className="text-slate-400">Checking market status...</p>}
                     </div>
                 </div>
