@@ -7,7 +7,7 @@ import { RiSearchLine, RiFireFill } from '@remixicon/react';
 
 export default function LiveStock() {
     const [ticker, setTicker] = useState('');
-    const [tickers, setTickers] = useState(['BTC-USD', '^GSPC', '^OMX']);
+    const [tickers, setTickers] = useState(['BTC-USD', '^GSPC', '^OMX', 'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META']);
 
     const addTicker = () => {
         setTickers([...tickers, ticker]);
