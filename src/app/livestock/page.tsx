@@ -20,7 +20,7 @@ export default function LiveStock() {
     return (
         <div className="content-container w-full space-y-10">
             <div className='flex gap-3'>
-                <TextInput icon={RiSearchLine} placeholder="Search..." onValueChange={(value) => setTicker(value.toUpperCase())} value={ticker} onKeyDown={(event) => event.key === 'Enter' && addTicker()} />
+                <TextInput icon={RiSearchLine} placeholder="Enter tickername and press ENTER..." onValueChange={(value) => setTicker(value.toUpperCase())} value={ticker} onKeyDown={(event) => event.key === 'Enter' && addTicker()} />
                 <Button onClick={() => setTickers([])} disabled={clearDisabled} color='red'>Clear Tickers</Button>
                 <Button onClick={addTicker} disabled={addDisabled} color='green'>Add Ticker</Button>
             </div>
