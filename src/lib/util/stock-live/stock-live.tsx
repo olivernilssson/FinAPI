@@ -30,7 +30,7 @@ export function StockLive({ ticker }: { ticker: string }) {
                 timeout = setTimeout(() => {
                     console.log('Market Closed');
                     setMarketStatus('closed');
-                }, 30000);
+                }, 60000);
             }
 
             setMarketClosed();
