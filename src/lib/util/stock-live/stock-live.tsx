@@ -30,7 +30,7 @@ export function StockLive({ ticker }: { ticker: string }) {
                 timeout = setTimeout(() => {
                     console.log('Market Closed');
                     setMarketStatus('closed');
-                }, 3000);
+                }, 30000);
             }
 
             setMarketClosed();
@@ -81,6 +81,7 @@ export function StockLive({ ticker }: { ticker: string }) {
         down: 'text-red-500',
     }[direction];
     
+    const decirationColor = priceColor?.substring(5);
 
     return (
         <div>
@@ -88,7 +89,7 @@ export function StockLive({ ticker }: { ticker: string }) {
             <Card
                 className="w-full"
                 decoration="top"
-                decorationColor={priceColor}
+                decorationColor={decirationColor}
                 >
                 <div className='flex justify-between align-center'>
                     <h1 className="text-tremor-content dark:text-dark-tremor-content text-3xl font-b">{ticker}</h1>
