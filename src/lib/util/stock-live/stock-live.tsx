@@ -117,7 +117,7 @@ export function StockLive({ ticker }: { ticker: string }) {
                                     <span className='animate-spin'>
                                         <RiDonutChartLine />
                                     </span>
-                                    <span>Checking market status</span>
+                                    <span>Waiting for next trade...</span>
                                 </div>}
                     </div>
                 </div>
