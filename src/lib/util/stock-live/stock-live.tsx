@@ -1,13 +1,13 @@
 "use client";
 
 import { Card, Badge } from '@tremor/react';
-import { RiRecordCircleFill } from '@remixicon/react';
+import { RiRecordCircleFill, RiDonutChartLine } from '@remixicon/react';
 import { useEffect, useState } from 'react';
 import protobuf, { Root, Message } from 'protobufjs';
 const { Buffer } = require('buffer/');
 
 function formatPrice(price: number) {
-    return `$${price.toFixed(2)}`;
+    return price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
 
 export function StockLive({ ticker }: { ticker: string }) {
@@ -112,7 +112,13 @@ export function StockLive({ ticker }: { ticker: string }) {
                                 </div>
                             </Badge>
                             }
-                        {marketStatus === 'closed' ? (<p className="text-red-500">Market Closed</p>) : marketStatus === 'open' ? <p className="text-green-500">Market Open</p> : <p className="text-slate-400">Checking market status...</p>}
+                            {marketStatus === 'closed' ? (<p className="text-red-500">Market Closed</p>) : marketStatus === 'open' ? <p className="text-green-500">Market Open</p> :
+                                <div className='flex items-center justify-between gap-x-2'>
+                                    <span className='animate-spin'>
+                                        <RiDonutChartLine />
+                                    </span>
+                                    <span>Checking market status</span>
+                                </div>}
                     </div>
                 </div>
                 <p className={`text-3xl font-semibold ${priceColor}`}>{currentStock && formatPrice((currentStock as any).price)}</p>
