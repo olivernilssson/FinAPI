@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, ChartBarSquareIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
   { name: 'Live Stock', href: '/livestock' },
@@ -20,8 +20,7 @@ export default function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="" />
+            <ChartBarSquareIcon className="h-14 w-auto transition ease-in-out fill-transparent text-green-200 hover:fill-green-900 duration-300" aria-hidden="true" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -36,13 +35,13 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
         {navigation.map((item) => (
-            <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-white">
+            <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 transition ease-in-out text-green-200 hover:text-green-500 duration-300">
             {item.name}
             </Link>
         ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="#" className="text-sm font-semibold leading-6 text-white">
+          <Link href="#" className="text-sm font-semibold leading-6 transition ease-in-out text-green-200 hover:text-green-500 duration-300">
             Light / Dark
           </Link>
         </div>
