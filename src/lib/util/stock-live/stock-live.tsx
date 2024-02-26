@@ -112,7 +112,7 @@ export function StockLive({ ticker }: { ticker: string }) {
                                 </div>
                             </Badge>
                             }
-                            {marketStatus === 'closed' ? (<p className="text-red-500">Market Closed</p>) : marketStatus === 'open' ? <p className="text-green-500">Market Open</p> :
+                            {marketStatus === 'closed' ? (<p className="text-red-500">Market Idle</p>) : marketStatus === 'open' ? <p className="text-green-500">Market Open</p> :
                                 <div className='flex items-center justify-between gap-x-2'>
                                     <span className='animate-spin'>
                                         <RiDonutChartLine />
