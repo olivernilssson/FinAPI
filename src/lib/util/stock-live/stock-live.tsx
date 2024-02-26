@@ -83,8 +83,7 @@ export function StockLive({ ticker }: { ticker: string }) {
     const decorationColor = priceColor?.substring(5);
 
     return (
-        <div>
-            <div className="w-full">
+            <div className="w-full flex h-full">
             <Card
                 className="w-full"
                 decoration="top"
@@ -124,7 +123,5 @@ export function StockLive({ ticker }: { ticker: string }) {
                 <p className={`text-3xl font-semibold ${priceColor}`}>{currentStock && formatPrice((currentStock as any).price)}</p>
                 </Card>
             </div>
-
-        </div>
     )
 }
